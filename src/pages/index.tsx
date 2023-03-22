@@ -1,4 +1,11 @@
+import dynamic from 'next/dynamic';
 import Head from 'next/head'
+import styles from '../styles/Home.module.css'
+
+const DWT = dynamic(() => import("../components/DWT"), {
+  ssr: false,
+  loading: () => <p>Initializing Document Scanner</p>,
+});
 
 export default function Home() {
   return (
@@ -12,6 +19,12 @@ export default function Home() {
       <main>
         <div>
           <h2>Document Scanner</h2>
+          <div className={styles.container}>
+            <DWT
+              width='100%'
+              height='100%'
+            ></DWT>
+          </div>
         </div>
       </main>
     </>
