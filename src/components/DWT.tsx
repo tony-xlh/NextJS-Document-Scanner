@@ -5,7 +5,6 @@ import { WebTwain } from "dwt/dist/types/WebTwain";
 interface props {
   license?:string;
   onWebTWAINReady?: (dwt:WebTwain) => void;
-  onWebTWAINNotFound?: () => void;
   width?: string;
   height?: string;
   viewMode?: {cols:number,rows:number};
@@ -37,17 +36,6 @@ const DWT: React.FC<props> = (props: props)  => {
       }
     });
     
-    if (props.onWebTWAINNotFound){
-      const notfound = () => {
-        if (props.onWebTWAINNotFound){
-          props.onWebTWAINNotFound();
-        }
-      }
-      let DynamsoftAny:any = Dynamsoft;
-      DynamsoftAny.OnWebTwainNotFoundOnWindowsCallback = notfound;
-      DynamsoftAny.OnWebTwainNotFoundOnMacCallback = notfound;
-      DynamsoftAny.OnWebTwainNotFoundOnLinuxCallback = notfound;
-    }
     if (props.license) {
       Dynamsoft.DWT.ProductKey = props.license;
     }
