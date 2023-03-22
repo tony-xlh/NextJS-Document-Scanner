@@ -1,6 +1,8 @@
+import { WebTwain } from 'dwt/dist/types/WebTwain';
 import dynamic from 'next/dynamic';
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import React from 'react';
 
 const DWT = dynamic(() => import("../components/DWT"), {
   ssr: false,
@@ -8,6 +10,27 @@ const DWT = dynamic(() => import("../components/DWT"), {
 });
 
 export default function Home() {
+  const DWObject = React.useRef<WebTwain>();
+  const onWebTWAINReady = (dwtObject:WebTwain) => {
+    DWObject.current = dwtObject;
+  }
+  const scan = () => {
+    if (DWObject.current) {
+      DWObject.current.SelectSource(function () {
+        DWObject.current!.OpenSource();
+        DWObject.current!.AcquireImage();
+      },
+        function () {
+          console.log("SelectSource failed!");
+        }
+      );
+    }
+  }
+  const save = () => {
+    if (DWObject.current) {
+      DWObject.current.SaveAllAsPDF("Scanned");
+    }
+  }
   return (
     <>
       <Head>
@@ -19,10 +42,14 @@ export default function Home() {
       <main>
         <div>
           <h2>Document Scanner</h2>
+          <button onClick={scan}>Scan</button>
+          <button onClick={save}>Save</button>
           <div className={styles.container}>
             <DWT
               width='100%'
               height='100%'
+              viewMode={{cols:2,rows:2}}
+              onWebTWAINReady={onWebTWAINReady}
             ></DWT>
           </div>
         </div>
