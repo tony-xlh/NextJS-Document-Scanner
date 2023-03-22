@@ -5,14 +5,15 @@ import styles from '../styles/Home.module.css'
 import React from 'react';
 
 const DWT = dynamic(() => import("../components/DWT"), {
-  ssr: false,
-  loading: () => <p>Initializing Document Scanner</p>,
+  ssr: false
 });
 
 export default function Home() {
+  const [initialized,setInitialized] = React.useState(false);
   const DWObject = React.useRef<WebTwain>();
   const onWebTWAINReady = (dwtObject:WebTwain) => {
     DWObject.current = dwtObject;
+    setInitialized(true);
   }
   const scan = () => {
     if (DWObject.current) {
@@ -42,8 +43,16 @@ export default function Home() {
       <main>
         <div>
           <h2>Document Scanner</h2>
-          <button onClick={scan}>Scan</button>
-          <button onClick={save}>Save</button>
+          {initialized
+            ? <>
+                <button onClick={scan}>Scan</button>
+                <button onClick={save}>Save</button>
+              </>
+            : <>
+                <p>Initializing...</p>
+              </>
+          }
+          
           <div className={styles.container}>
             <DWT
               width='100%'
