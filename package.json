@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "ncp node_modules/dwt/dist public/dwt-resources && next dev",
+    "build": "ncp node_modules/dwt/dist public/dwt-resources && next build",
+    "start": "ncp node_modules/dwt/dist public/dwt-resources && next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -19,5 +19,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.0.2"
+  },
+  "devDependencies": {
+    "ncp": "^2.0.0"
   }
 }
