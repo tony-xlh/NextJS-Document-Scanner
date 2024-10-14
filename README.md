@@ -9,3 +9,7 @@ Document Scanner Example in Next.js based on [Dynamic Web TWAIN](https://www.dyn
 ```bash
 npm run dev
 ```
+
+## Blog
+
+[How to Build a Document Scanner in Next.js](https://www.dynamsoft.com/codepool/nextjs-document-scanner.html)
