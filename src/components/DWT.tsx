@@ -39,7 +39,7 @@ const DWT: React.FC<props> = (props: props)  => {
     if (props.license) {
       Dynamsoft.DWT.ProductKey = props.license;
     }
-    Dynamsoft.DWT.ResourcesPath = "https://unpkg.com/dwt@18.1.1/dist";
+    Dynamsoft.DWT.ResourcesPath = "https://unpkg.com/dwt@18.5.1/dist";
     Dynamsoft.DWT.Containers = [{
         WebTwainId: 'dwtObject',
         ContainerId: containerID
